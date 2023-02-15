@@ -1,0 +1,88 @@
+body {
+    min-height: 100vh;
+}
+
+.uploader {
+    position: relative;
+    border-radius: 8px;
+    width: 320px;
+    height: 180px;
+    background: #212121;
+    overflow: hidden;
+}
+
+.uploader:before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    border: dashed 2px #fafafa;
+    color: #fafafa;
+    font-size: 14px;
+    content: "drag and drop your file here";
+    pointer-events: none;
+}
+
+.uploader input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 999px;
+    height: 999px;
+    font-size: 999px;
+    opacity: 0;
+}
+
+.slider {
+    width: 20vw;
+    height: 20vh;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.slider-item {
+    width: 20vw;
+    height: 20vh;
+    float: left;
+}
+
+.slider-inner img{
+    width: 20vw;
+    height: 20vh;
+}
+
+.slider-inner {
+    width: 300%;
+    animation: slider 10s infinite cubic-bezier(1, 0, 0, 1);
+}
+
+@keyframes slider {
+    0% {
+        transform: translateX(0);
+    }
+
+    23% {
+        transform: translateX(0);
+    }
+
+    33% {
+        transform: translateX(-20vw);
+    }
+
+    56% {
+        transform: translateX(-20vw);
+    }
+
+    66% {
+        transform: translateX(-40vw);
+    }
+
+    90% {
+        transform: translateX(-40vw);
+    }
+}
