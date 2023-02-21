@@ -14,20 +14,20 @@ let turnSignalsStates = {
 
 let iconsStates = {
     // main circle
-    'dippedBeam': 0,
-    'brake': 0,
-    'drift': 0,
-    'highBeam': 0,
-    'lock': 0,
-    'seatBelt': 0,
+    'dippedBeam': 1,
+    'brake': 1,
+    'drift': 1,
+    'highBeam': 1,
+    'lock': 1,
+    'seatBelt': 1,
     'engineTemp': 2,
-    'stab': 0,
-    'abs': 0,
+    'stab': 1,
+    'abs': 1,
     // right circle
     'gas': 2,
-    'trunk': 0,
-    'bonnet': 0,
-    'doors': 0,
+    'trunk': 1,
+    'bonnet': 1,
+    'doors': 1,
     // left circle
     'battery': 2,
     'oil': 2,
@@ -45,19 +45,25 @@ function redraw() {
 redraw();
 
 // $("#car_handle").
-img = document.getElementById("car_handle");
-angle = 200;
-img.style.transform = "rotate(90deg)";
+// img = document.getElementById("car_handle");
+// angle = 200;
+// img.style.transform = "rotate(90deg)";
 
-$.ajax({
-    url: "",
-    type: "GET",
-    dataType: "json",
-    data: $("asd").serializeArray(),
-    timeout: 5000,
-}).done(function(data){
-    val = ((data[steer] - 2048.0) / 4096.0) * 720.0;
-     
-}).fail(function(){
+function getStatus() {
+    url = ""
+    $.ajax("/req_pin_status", {
+        url: url,
+        type: "GET",
+        dataType: "json",
+        // data: 'req:asd',
+        timeout: 500,
+    }).done(function (data) {
+        console.log(data["answer"]);
+        // val = ((data[steer] - 2048.0) / 4096.0) * 720.0;
 
-});
+    }).fail(function () {
+
+    });
+}
+
+setInterval(getStatus, 100);
