@@ -14,24 +14,24 @@ let turnSignalsStates = {
 
 let iconsStates = {
     // main circle
-    'dippedBeam': 1,
-    'brake': 1,
-    'drift': 1,
-    'highBeam': 1,
-    'lock': 1,
-    'seatBelt': 1,
-    'engineTemp': 2,
-    'stab': 1,
-    'abs': 1,
+    'dippedBeam': 0,
+    'brake': 0,
+    'drift': 0,
+    'highBeam': 0,
+    'lock': 0,
+    'seatBelt': 0,
+    'engineTemp': 0,
+    'stab': 0,
+    'abs': 0,
     // right circle
-    'gas': 2,
-    'trunk': 1,
-    'bonnet': 1,
-    'doors': 1,
+    'gas': 0,
+    'trunk': 0,
+    'bonnet': 0,
+    'doors': 0,
     // left circle
-    'battery': 2,
-    'oil': 2,
-    'engineFail': 2
+    'battery': 0,
+    'oil': 0,
+    'engineFail': 0
 }
 
 function redraw() {
@@ -42,12 +42,19 @@ function redraw() {
     draw(speed, tacho, gas, mileage, turnSignalsStates, iconsStates);
 }
 
+function redraw(speed, tacho, gas, mileage) {
+    draw(speed, tacho, gas, mileage, turnSignalsStates, iconsStates);
+}
+
 redraw();
 
 // $("#car_handle").
-// img = document.getElementById("car_handle");
-// angle = 200;
-// img.style.transform = "rotate(90deg)";
+
+function analog2digital( val){
+    res = 0
+    if (val > 3000)res = 1
+    return res
+}
 
 function getStatus() {
     url = ""
@@ -58,8 +65,20 @@ function getStatus() {
         // data: 'req:asd',
         timeout: 500,
     }).done(function (data) {
-        console.log(data["answer"]);
-        // val = ((data[steer] - 2048.0) / 4096.0) * 720.0;
+        SPEED_MAX = 180.0;
+        speed = data["IN1"] / 4095.0;
+        tacho = data["IN2"] / 4095.0
+        gas = data["IN3"] / 4095.0
+        mileage = Math.round(speed * 200)
+        turnSignalsStates['left'] = analog2digital(data["IN4"])
+        turnSignalsStates['right'] = analog2digital(data["IN5"])
+        iconsStates['lock'] = analog2digital(data["IN6"])
+        redraw(speed, tacho, gas, mileage)
+        img = document.getElementById("car_handle");
+        angle = ((data["IN9"] - 2048) / 4095.0) * 270;
+        img.style.transform = `rotate(${angle}deg)`;
+        kmph = Math.round(speed * SPEED_MAX);
+        $("#kmph-val").text(kmph);
 
     }).fail(function () {
 
@@ -67,3 +86,4 @@ function getStatus() {
 }
 
 setInterval(getStatus, 100);
+
