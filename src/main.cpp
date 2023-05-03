@@ -79,24 +79,16 @@ void loop()
     serializeJson(doc, json);
     while (true)
     {
-        // doc["IN1"] = analogRead(PIN_IN1);
-        // doc["IN2"] = analogRead(PIN_IN2);
-        // doc["IN3"] = analogRead(PIN_IN3);
-        // doc["IN4"] = analogRead(PIN_IN4);
-        // doc["IN5"] = analogRead(PIN_IN5);
-        // doc["IN6"] = analogRead(PIN_IN6);
-        // doc["IN7"] = analogRead(PIN_IN7);
-        // doc["IN8"] = analogRead(PIN_IN8);
-        // doc["IN9"] = analogRead(PIN_IN9);
-        doc["IN1"] = 100;
-        doc["IN2"] = 100;
-        doc["IN3"] = 100;
-        doc["IN4"] = 100;
-        doc["IN5"] = 100;
-        doc["IN6"] = 100;
-        doc["IN7"] = 100;
-        doc["IN8"] = 100;
-        doc["IN9"] = 100;
+        doc["IN1"] = analogRead(PIN_IN1);
+        doc["IN2"] = analogRead(PIN_IN2);
+        doc["IN3"] = analogRead(PIN_IN3);
+        doc["IN4"] = analogRead(PIN_IN4);
+        doc["IN5"] = analogRead(PIN_IN5);
+        doc["IN6"] = analogRead(PIN_IN6);
+        doc["IN7"] = analogRead(PIN_IN7);
+        doc["IN8"] = analogRead(PIN_IN8);
+        doc["IN9"] = analogRead(PIN_IN9);
+
         
         digitalWrite(PIN_OUT2, HIGH);
         json.clear();
